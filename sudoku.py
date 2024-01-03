@@ -3,13 +3,11 @@ from turtle_setup import *
 
 
 class Sudoku:
-    def __init__(self, n=9, missing=0, demo=True):
+    def __init__(self, n=9, missing=0):
         self.n = n
         self.board = [[0 for i in range(n)] for j in range(n)]
-        self.unsolved_board = []
         self.srn = int(math.sqrt(n))
         self.missing = missing
-        self.demo = demo
         self.timer = time.time()
 
     def fill_box(self, row, col):
@@ -76,12 +74,6 @@ class Sudoku:
         for i in range(1, self.n + 1):
             if self.isvalid(i, r, c):
                 self.board[r][c] = i
-                if self.demo:
-                    os.system('CLS')
-                    self.show_board()
-                    response = input('Press Enter to see next stage ({skip} to skip preview) : ')
-                    if response == 'skip':
-                        self.demo = False
                 if self.solve_board(r, c + 1):
                     return True
             self.board[r][c] = 0

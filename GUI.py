@@ -14,7 +14,7 @@ difficulty = 'easy'
 n = 9
 srn = int(math.sqrt(n))
 curr_number = 'none'
-s = Sudoku(n, 0, False)
+s = Sudoku(n, 0)
 unmodifiable_cells = []
 buttons = []
 
@@ -173,17 +173,13 @@ def draw_numbers_on_grid():
         d = 30
         size = 14
     x_shift = -160
-    # s.show_board()
     for i in range(n):
         for j in range(n):
             if s.board[i][j] != 0:
                 if [i, j] in unmodifiable_cells:
-                    # pen2.goto(-d * n // 2 + x_shift + j * d + 5, d * n // 2 - i * d - 5)
-                    # pen2.begin_fill()
                     pen2.setheading(0)
                     pen2.fillcolor('white')
                     pen2.color('#0099FF')
-                    # pen2.end_fill()
                 else:
                     pen2.pencolor('white')
                     num = s.board[i][j]
@@ -193,9 +189,6 @@ def draw_numbers_on_grid():
                     else:
                         pen2.pencolor('red')
                     s.board[i][j] = num
-                # a point to note is that i means row and j means column
-                # hence we will add j to x coordinate while i to y coordinate
-                # because column indicates the horizontal shift while row is the vertical shift
                 if is_solved():
                     pen2.color('spring green')
                 if n == 4:
@@ -473,11 +466,10 @@ def grid_size_check(x, y):
 
 def mode_selection_screen_check(x, y):
     global is_mode_selection, mode
-    if -150 < x < 150:
+    if -150 < x < 220:
         if -50 < y < 0:
             is_mode_selection = True
             mode = 'human'
-    if -150 < x < 220:
         if -125 < y < -75:
             is_mode_selection = True
             mode = 'machine'
@@ -507,28 +499,34 @@ def play_game():
         if difficulty == 'easy':
             if n == 4:
                 m = 5
-            else:
+            elif n == 9:
                 m = n * 3
+            else:
+                m = n * 4
         elif difficulty == 'medium':
             if n == 4:
                 m = 8
-            else:
+            elif n == 9:
                 m = n * 5
+            else:
+                m = n * 6
         elif difficulty == 'hard':
             if n == 4:
                 m = 10
-            else:
+            elif n == 9:
                 m = n * 7
+            else:
+                m = n * 8
         pen.goto(150, -200)
         pen.clear()
         pen.write('Generating Board...', font=('Arial', 15, 'normal'))
-        s = Sudoku(n, m, False)
+        s = Sudoku(n, m)
         s.board_generate()
         update_unmodifiable_cells()
         pen.clear()
         pen2.clear()
     else:
-        s = Sudoku(n, 0, False)
+        s = Sudoku(n, 0)
         update_unmodifiable_cells()
     if mode == 'machine':
         pen.pensize(4)
