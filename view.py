@@ -437,23 +437,23 @@ class SudokuGUI:
                 if self.n == 4:
                     m = 5
                 elif self.n == 9:
-                    m = self.n * 3
-                else:
                     m = self.n * 4
+                else:
+                    m = self.n * 6
             elif self.difficulty == 'medium':
                 if self.n == 4:
                     m = 8
                 elif self.n == 9:
-                    m = self.n * 5
-                else:
                     m = self.n * 6
+                else:
+                    m = self.n * 8
             elif self.difficulty == 'hard':
                 if self.n == 4:
                     m = 10
                 elif self.n == 9:
-                    m = self.n * 7
+                    m = self.n * 7 + 6
                 else:
-                    m = self.n * 8
+                    m = self.n * 10
             pen.goto(150, -200)
             pen.clear()
             pen.write('Generating Board...', font=('Arial', 15, 'normal'))
