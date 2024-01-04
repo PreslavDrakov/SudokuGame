@@ -31,26 +31,7 @@ def update_unmodifiable_cells():
                 unmodifiable_cells.append([row_no, col_no])
 
 
-def is_solved():
-    if is_board_filled():
-        for i in range(n):
-            for j in range(n):
-                num = s.board[i][j]
-                s.board[i][j] = 999
-                if not s.isvalid(num, i, j):
-                    s.board[i][j] = num
-                    return False
-                s.board[i][j] = num
-        return True
 
-
-def is_board_filled():
-    global n, s
-    for i in range(n):
-        for j in range(n):
-            if s.board[i][j] == 0:
-                return False
-    return True
 
 
 def draw_board(n):
@@ -188,7 +169,7 @@ def draw_numbers_on_grid():
                     else:
                         pen2.pencolor('red')
                     s.board[i][j] = num
-                if is_solved():
+                if s.is_solved():
                     pen2.color('spring green')
                 if n == 4:
                     pen2.goto(-d * n // 2 + x_shift + j * d + 40, d * n // 2 - i * d - 90)

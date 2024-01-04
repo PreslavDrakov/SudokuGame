@@ -63,7 +63,7 @@ class Sudoku:
                 self.board[i][j] = num
         if r == self.n - 1 and c == self.n:
             return True
-        if time.time() - self.timer > 60:
+        if time.time() - self.timer > 120:
             return False
         if c == self.n:
             c -= c
@@ -98,6 +98,25 @@ class Sudoku:
             if self.solve_board(0, self.srn):
                 break
         self.remove_elements()
+
+    def is_solved(self):
+        if self.is_board_filled():
+            for i in range(self.n):
+                for j in range(self.n):
+                    num = self.board[i][j]
+                    self.board[i][j] = 999
+                    if not self.isvalid(num, i, j):
+                        self.board[i][j] = num
+                        return False
+                    self.board[i][j] = num
+            return True
+
+    def is_board_filled(self):
+        for i in range(self.n):
+            for j in range(self.n):
+                if self.board[i][j] == 0:
+                    return False
+        return True
 
     def show_board(self):
         t = '*' + '─' * (2 * self.srn + 1)
