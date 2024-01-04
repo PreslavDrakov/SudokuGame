@@ -1,4 +1,3 @@
-from libraries import *
 from sudoku import *
 from turtle_setup import *
 from button import *

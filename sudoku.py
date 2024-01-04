@@ -1,4 +1,3 @@
-from libraries import *
 from turtle_setup import *
 
 

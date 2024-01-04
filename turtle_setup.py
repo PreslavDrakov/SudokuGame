@@ -5,10 +5,12 @@ screen.setup(600, 600)
 screen.title('Sudoku')
 screen.tracer(0)
 screen.bgcolor('dark slate gray')
+
 pen = turtle.Turtle()
 pen.pencolor('white')
 pen.hideturtle()
 pen.penup()
+
 pen2 = turtle.Turtle()
 pen2.hideturtle()
 pen2.pencolor('white')
