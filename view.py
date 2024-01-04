@@ -177,12 +177,13 @@ class SudokuGUI:
                             pen2.goto(-d * self.n // 2 + x_shift + j * d + 12, d * self.n // 2 - i * d - 27)
                     pen2.write(str(self.s.board[i][j]), font=('Arial', size, 'normal'))
 
-    def rect(self, t, l, b):
+    @staticmethod
+    def rect(t, x, y):
         t.pendown()
         for i in range(2):
-            t.forward(l)
+            t.forward(x)
             t.right(90)
-            t.forward(b)
+            t.forward(y)
             t.right(90)
         t.penup()
 
@@ -311,17 +312,7 @@ class SudokuGUI:
                                 else:
                                     self.curr_number = 'none'
                                 pen.clear()
-                                if self.mode == 'machine':
-                                    pen.pensize(4)
-                                    pen.goto(150, -100)
-                                    self.rect(pen, 200, 50)
-                                    pen.goto(200, -150)
-                                    pen.write('Solve', font=('Arial', 30, 'normal'))
-                                pen.pensize(4)
-                                pen.goto(150, -175)
-                                self.rect(pen, 200, 50)
-                                pen.goto(175, -220)
-                                pen.write('Main Menu', font=('Arial', 25, 'normal'))
+                                self.is_machine_check()
                                 self.draw_board()
                                 self.draw_buttons()
 
@@ -348,7 +339,6 @@ class SudokuGUI:
                         screen.update()
 
     def check_buttons(self, x, y):
-        global is_game_over
         self.number_buttons_check(x, y)
         self.grid_check(x, y)
         if 150 < x < 350:
@@ -357,7 +347,6 @@ class SudokuGUI:
                     pen.goto(150, -75)
                     pen.write('Solving...', font=('Arial', 20, 'normal'))
                     if self.s.solve_board(0, 0):
-                        # pen.undo()
                         pen.clear()
                         self.draw_buttons()
                         self.draw_board()
@@ -378,20 +367,23 @@ class SudokuGUI:
                             pen.write(
                                 'Reason : One or more numbers may not be possible to put in a location',
                                 font=('Arial', 10, 'normal'))
-                if self.mode == 'machine':
-                    pen.pensize(4)
-                    pen.goto(150, -100)
-                    self.rect(pen, 200, 50)
-                    pen.goto(200, -150)
-                    pen.write('Solve', font=('Arial', 30, 'normal'))
-                pen.pensize(4)
-                pen.goto(150, -175)
-                self.rect(pen, 200, 50)
-                pen.goto(175, -220)
-                pen.write('Main Menu', font=('Arial', 25, 'normal'))
+                self.is_machine_check()
                 self.draw_numbers_on_grid()
             if -225 < y < -175:
                 self.is_game_over = True
+
+    def is_machine_check(self):
+        if self.mode == 'machine':
+            pen.pensize(4)
+            pen.goto(150, -100)
+            self.rect(pen, 200, 50)
+            pen.goto(200, -150)
+            pen.write('Solve', font=('Arial', 30, 'normal'))
+        pen.pensize(4)
+        pen.goto(150, -175)
+        self.rect(pen, 200, 50)
+        pen.goto(175, -220)
+        pen.write('Main Menu', font=('Arial', 25, 'normal'))
 
     def welcome_screen_check(self, x, y):
         if -95 < x < 105:
@@ -473,17 +465,7 @@ class SudokuGUI:
         else:
             self.s = Sudoku(self.n, 0)
             self.update_unmodifiable_cells()
-        if self.mode == 'machine':
-            pen.pensize(4)
-            pen.goto(150, -100)
-            self.rect(pen, 200, 50)
-            pen.goto(200, -150)
-            pen.write('Solve', font=('Arial', 30, 'normal'))
-        pen.pensize(4)
-        pen.goto(150, -175)
-        self.rect(pen, 200, 50)
-        pen.goto(175, -220)
-        pen.write('Main Menu', font=('Arial', 25, 'normal'))
+        self.is_machine_check()
         self.draw_board()
         self.draw_buttons()
         self.draw_numbers_on_grid()
