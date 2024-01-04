@@ -552,12 +552,10 @@ def play_game():
 def main():
     global n, mode, difficulty, s, is_game_over, is_welcome_screen_over, is_grid_size_over, is_mode_selection, is_difficulty
     while True:
-        unmodifiable_cells = []
         for button in buttons:
             button.is_selected = False
             button.is_active = False
         n = 9
-        srn = 3
         is_game_over = False
         pen.clear()
         pen2.clear()
