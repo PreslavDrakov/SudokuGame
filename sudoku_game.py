@@ -358,7 +358,7 @@ class SudokuGUI:
                         self.draw_board()
                         pen.goto(150, -75)
                         pen.write('No Solution!', font=('Arial', 20, 'normal'))
-                        if time.time() - self.s.timer > 60:
+                        if time.time() - self.s.timer > 120:
                             pen.goto(-250, -280)
                             pen.write('Reason : Solution took longer than time limit (60 seconds)',
                                       font=('Arial', 10, 'normal'))
