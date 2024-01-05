@@ -9,13 +9,13 @@ class Sudoku:
         self.missing = missing
         self.timer = time.time()
 
-    def fill_box(self, row, col):
+    def fill_box(self, r, c):
         num = [i for i in range(1, self.n + 1)]
         for i in range(self.srn):
             for j in range(self.srn):
                 x = random.choice(num)
                 num.remove(x)
-                self.board[row + i][col + j] = x
+                self.board[r + i][c + j] = x
 
     def diagonal(self):
         for i in range(0, self.n, self.srn):
@@ -42,10 +42,10 @@ class Sudoku:
                     return True
         return False
 
-    def isvalid(self, k, i, j):
-        if not self.is_used_in_row(k, i):
-            if not self.is_used_in_column(k, j):
-                if not self.is_used_in_box(k, i, j):
+    def isvalid(self, n, r, c):
+        if not self.is_used_in_row(n, r):
+            if not self.is_used_in_column(n, c):
+                if not self.is_used_in_box(n, r, c):
                     return True
         return False
 
